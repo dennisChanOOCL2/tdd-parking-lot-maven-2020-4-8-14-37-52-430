@@ -1,6 +1,7 @@
 package com.oocl;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -32,6 +33,65 @@ Passing a null car to a parking boy. (OK)
 
  */
 public class ParkingBoyTest {
+
+    private ParkingBoy parkingBoy;
+    private ParkingLot parkingLot;
+
+    @Before
+    public void setUp(){
+        this.parkingLot = new ParkingLot();
+        this.parkingBoy = new ParkingBoy(parkingLot);
+    }
+
+
+    @Test
+    public void should_return_parking_ticket_when_parking_boy_park_car(){
+
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+
+        Assert.assertNotNull(parkingTicket);
+    }
+
+    @Test
+    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket(){
+
+        parkingBoy.park(new Car());
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        Assert.assertEquals(car, fetchedCar);
+    }
+
+    @Test
+    public void should_not_return_car_when_parking_boy_fetch_car_with_incorrect_parking_ticket(){
+
+        parkingBoy.park(new Car());
+
+        Car fetchedCar = parkingBoy.fetch(new ParkingTicket());
+        Assert.assertNull(fetchedCar);
+    }
+
+    @Test
+    public void should_not_return_car_when_ticket_has_used(){
+
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+        parkingBoy.fetch(parkingTicket);
+
+        Car car = parkingBoy.fetch(parkingTicket);
+        Assert.assertNull(car);
+    }
+
+    @Test
+    public void should_not_park_car_when_parking_lot_is_full(){
+        parkingLot = new ParkingLot(1);
+        parkingBoy = new ParkingBoy(parkingLot);
+        parkingBoy.park(new Car());
+
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+        Assert.assertNull(parkingTicket);
+    }
+
 
     @Test
     public void should_park_car_to_parking_lot(){
