@@ -37,11 +37,23 @@ public class ParkingBoyTest {
         Assert.assertNull(fetchedCar);
     }
 
-//    @Test
-//    public void should_not_return_car_when_ticket_has_used(){
-//        ParkingBoy parkingBoy = new ParkingBoy();
-//        ParkingTicket parkingTicket = parkingBoy.park(new Car());
-//        parkingBoy.fetch(parkingTicket);
-//        Assert.assertNull(fetchedCar);
-//    }
+    @Test
+    public void should_not_return_car_when_ticket_has_used(){
+        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+        parkingBoy.fetch(parkingTicket);
+
+        Car car = parkingBoy.fetch(parkingTicket);
+        Assert.assertNull(car);
+    }
+
+    @Test
+    public void should_not_park_car_when_parking_lot_is_full(){
+        ParkingBoy parkingBoy = new ParkingBoy(1);
+        parkingBoy.park(new Car());
+
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+        Assert.assertNull(parkingTicket);
+    }
+
 }
