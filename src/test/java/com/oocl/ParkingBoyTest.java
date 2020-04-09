@@ -22,8 +22,10 @@ AC4: If the customer gives a ticket that has already been used.
 AC5: The parking lot has a capacity (the default capacity of a parking lot is 10).
  If there is no position, then the user cannot park the car into it. Thus (s)he will not get any ticket.
 
+ --- above case = demo showed ---
+
 There are some cases which are not a requirement but may happen technically
-Passing a parked car to a parking boy.
+Passing a parked car to a parking boy. (OK)
 Passing a null car to a parking boy.
 
 
@@ -58,6 +60,16 @@ public class ParkingBoyTest {
         Assert.assertNull(fetchedCarFromParkingLot);
     }
 
+    @Test
+    public void should_return_null_for_parking_null(){
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
 
+        ParkingTicket parkingTicket = parkingBoy.park(null);
+
+        Car fetchedCarFromParkingLot = parkingLot.fetch(parkingTicket);
+
+        Assert.assertNull(fetchedCarFromParkingLot);
+    }
 
 }

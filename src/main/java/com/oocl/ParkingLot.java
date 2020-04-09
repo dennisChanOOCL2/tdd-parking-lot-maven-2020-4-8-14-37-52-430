@@ -16,11 +16,9 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if (this.capacity == parkingTicketCarMap.size()){
-            return null;
-        }
-
-        if(parkingTicketCarMap.containsValue(car)){
+        if (car == null
+                || this.capacity == parkingTicketCarMap.size()
+                || parkingTicketCarMap.containsValue(car)){
             return null;
         }
 
