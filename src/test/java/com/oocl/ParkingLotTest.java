@@ -7,11 +7,15 @@ import org.junit.Test;
 public class ParkingLotTest {
 
     private ParkingLot parkingLot;
+    
+    @Before
+    public void setUp(){
+        this.parkingLot = new ParkingLot();
+    }
 
     @Test
     public void should_return_parking_ticket_when_parking_boy_park_car(){
-        ParkingLot parkingLot = new ParkingLot();
-
+        
         ParkingTicket parkingTicket = parkingLot.park(new Car());
 
         Assert.assertNotNull(parkingTicket);
@@ -19,7 +23,7 @@ public class ParkingLotTest {
 
     @Test
     public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket(){
-        ParkingLot parkingLot = new ParkingLot();
+
         parkingLot.park(new Car());
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot.park(car);
@@ -30,7 +34,7 @@ public class ParkingLotTest {
 
     @Test
     public void should_not_return_car_when_parking_boy_fetch_car_with_incorrect_parking_ticket(){
-        ParkingLot parkingLot = new ParkingLot();
+        
         parkingLot.park(new Car());
 
         Car fetchedCar = parkingLot.fetch(new ParkingTicket());
@@ -39,7 +43,7 @@ public class ParkingLotTest {
 
     @Test
     public void should_not_return_car_when_ticket_has_used(){
-        ParkingLot parkingLot = new ParkingLot();
+        
         ParkingTicket parkingTicket = parkingLot.park(new Car());
         parkingLot.fetch(parkingTicket);
 
@@ -49,7 +53,7 @@ public class ParkingLotTest {
 
     @Test
     public void should_not_park_car_when_parking_lot_is_full(){
-        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot = new ParkingLot(1);
         parkingLot.park(new Car());
 
         ParkingTicket parkingTicket = parkingLot.park(new Car());
