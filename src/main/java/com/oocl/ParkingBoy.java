@@ -5,6 +5,7 @@ public class ParkingBoy {
 
     public ParkingBoy(ParkingLot parkingLot){
         this.parkingLot = parkingLot;
+        parkingLot.assignParkingBoyToLot(this);
     }
 
     public ParkingTicket park(Car car) {

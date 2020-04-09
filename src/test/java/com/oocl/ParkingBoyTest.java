@@ -26,7 +26,7 @@ AC5: The parking lot has a capacity (the default capacity of a parking lot is 10
 
 There are some cases which are not a requirement but may happen technically
 Passing a parked car to a parking boy. (OK)
-Passing a null car to a parking boy.
+Passing a null car to a parking boy. (OK)
 
 
 

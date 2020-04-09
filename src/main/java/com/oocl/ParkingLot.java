@@ -1,11 +1,20 @@
 package com.oocl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ParkingLot {
     private int capacity;
     private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<ParkingTicket, Car>();
+    private List<ParkingBoy> parkingBoyList = new ArrayList();
+
+    public void assignParkingBoyToLot(ParkingBoy parkingBoy){
+        if(!parkingBoyList.contains(parkingBoy)){
+            parkingBoyList.add(parkingBoy);
+        }
+    }
 
     public ParkingLot(int capacity){
         this.capacity = capacity;
