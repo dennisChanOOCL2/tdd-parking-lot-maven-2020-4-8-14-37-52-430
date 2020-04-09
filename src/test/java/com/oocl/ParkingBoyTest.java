@@ -2,7 +2,9 @@ package com.oocl;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
 
@@ -36,6 +38,9 @@ public class ParkingBoyTest {
 
     private ParkingBoy parkingBoy;
     private ParkingLot parkingLot;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp(){
@@ -131,5 +136,32 @@ public class ParkingBoyTest {
 
         Assert.assertNull(fetchedCarFromParkingLot);
     }
+
+    @Test(expected = UnrecognizedParkingTicketException.class)
+    public void should_return_exception_message_when_fetch_with_incorrect_ticket() {
+        expectedException.expect(UnrecognizedParkingTicketException.class);
+        expectedException.expectMessage("Unrecognized parking ticket.");
+
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        parkingBoy.fetch(new ParkingTicket());
+    }
+
+    @Test
+    public void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full(){
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot();
+
+        ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot, secondParkingLot);
+        parkingBoy.park(new Car());
+
+        parkingBoy.park(new Car());
+
+    }
+
 
 }
