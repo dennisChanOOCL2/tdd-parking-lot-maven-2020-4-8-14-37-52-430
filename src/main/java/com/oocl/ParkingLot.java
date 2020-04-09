@@ -19,6 +19,11 @@ public class ParkingLot {
         if (this.capacity == parkingTicketCarMap.size()){
             return null;
         }
+
+        if(parkingTicketCarMap.containsValue(car)){
+            return null;
+        }
+
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingTicketCarMap.put(parkingTicket, car);
         return parkingTicket;
