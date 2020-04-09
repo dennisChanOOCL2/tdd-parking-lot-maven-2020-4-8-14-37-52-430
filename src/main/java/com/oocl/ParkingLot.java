@@ -2,17 +2,16 @@ package com.oocl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
-public class ParkingBoy {
+public class ParkingLot {
     private int capacity;
     private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<ParkingTicket, Car>();
 
-    public ParkingBoy(int capacity){
+    public ParkingLot(int capacity){
         this.capacity = capacity;
     }
 
-    public ParkingBoy(){
+    public ParkingLot(){
         this.capacity = 10;
     }
 
