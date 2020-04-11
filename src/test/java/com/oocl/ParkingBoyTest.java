@@ -139,16 +139,15 @@ public class ParkingBoyTest {
 
     @Test(expected = UnrecognizedParkingTicketException.class)
     public void should_return_exception_message_when_fetch_with_incorrect_ticket() {
-        expectedException.expect(UnrecognizedParkingTicketException.class);
-        expectedException.expectMessage("Unrecognized parking ticket.");
-
         ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         Car car = new Car();
 
         ParkingTicket parkingTicket = parkingBoy.park(car);
-
         parkingBoy.fetch(new ParkingTicket());
+
+        expectedException.expect(UnrecognizedParkingTicketException.class);
+        expectedException.expectMessage("Unrecognized parking ticket.");
     }
 
     @Test
@@ -159,7 +158,11 @@ public class ParkingBoyTest {
         ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot, secondParkingLot);
         parkingBoy.park(new Car());
 
-        parkingBoy.park(new Car());
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+
 
     }
 

@@ -16,6 +16,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
+        boolean isFull = isFull();
         if (car == null
                 || this.capacity == parkingTicketCarMap.size()
                 || parkingTicketCarMap.containsValue(car)){
@@ -35,4 +36,10 @@ public class ParkingLot {
         return car;
     }
 
+    public boolean isFull() {
+        if(this.capacity <= parkingTicketCarMap.size()){
+            return true;
+        }
+        return false;
+    }
 }

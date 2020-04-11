@@ -12,7 +12,8 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return this.parkingLotList.get(0).park(car);
+        ParkingLot selectedParkingLot = this.parkingLotList.stream().filter(parkingLot -> !parkingLot.isFull()).findFirst().get();
+        return selectedParkingLot.park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
