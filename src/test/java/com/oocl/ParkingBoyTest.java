@@ -137,18 +137,28 @@ public class ParkingBoyTest {
         Assert.assertNull(fetchedCarFromParkingLot);
     }
 
-    @Test(expected = UnrecognizedParkingTicketException.class)
-    public void should_return_exception_message_when_fetch_with_incorrect_ticket() {
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        Car car = new Car();
-
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-        parkingBoy.fetch(new ParkingTicket());
-
+    @Test
+    public void should_return_exception_message_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
+
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        parkingBoy.fetch(new ParkingTicket());
     }
+
+    @Test
+    public void should_return_exception_message_when_no_ticket_provided() {
+        expectedException.expect(TicketNotFoundException.class);
+        expectedException.expectMessage("Please provide your parking ticket.");
+
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        parkingBoy.fetch(null);
+    }
+
 
     @Test
     public void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full(){
@@ -166,5 +176,13 @@ public class ParkingBoyTest {
 
     }
 
+    @Test
+    public void shouldThrowRuntimeExceptionWhenEmployeeIDisNull() throws Exception {
+        expectedException.expect(TicketNotFoundException.class);
+        expectedException.expectMessage("Please provide your parking ticket.");
 
+        // do something that should throw the exception...
+        System.out.println("=======Starting Exception process=======");
+        throw new TicketNotFoundException();
+    }
 }

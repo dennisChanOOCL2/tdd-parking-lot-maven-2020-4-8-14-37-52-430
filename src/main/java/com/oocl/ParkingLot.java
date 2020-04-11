@@ -29,6 +29,10 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket){
+        if(parkingTicket == null){
+            throw new TicketNotFoundException();
+        }
+
         if(parkingTicketCarMap.get(parkingTicket) == null){
             throw new UnrecognizedParkingTicketException();
         }
