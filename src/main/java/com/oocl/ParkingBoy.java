@@ -3,32 +3,51 @@ package com.oocl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParkingBoy {
-    private List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+    protected List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
 
     public ParkingBoy(ParkingLot... parkingLots){
-        this.parkingLotList.addAll(Arrays.asList(parkingLots));
+        parkingLotList.addAll(Arrays.asList(parkingLots));
     }
 
     public ParkingTicket park(Car car) {
-        ParkingLot selectedParkingLot = this.parkingLotList.stream()
-                .filter(parkingLot -> !parkingLot.isFull())
-                .findFirst()
-                .orElse(null);
 
-        if(selectedParkingLot == null){
+        List<ParkingLot> availableParkingLotList = findParkingLotIsNotFull();
+
+        if(availableParkingLotList.size() == 0){
             throw new NotEnoughPositionException();
         }
 
-        return selectedParkingLot.park(car);
+        return availableParkingLotList.get(0).park(car);
+    }
+
+    public List<ParkingLot> findParkingLotIsNotFull(){
+        List<ParkingLot> availableParkingLotList = this.parkingLotList.stream()
+                .filter(parkingLot -> !parkingLot.isFull()).collect(Collectors.toList());
+
+        return availableParkingLotList;
     }
 
     public Car fetch(ParkingTicket parkingTicket){
-        try{
-            return this.parkingLotList.get(0).fetch(parkingTicket);
-        }catch(UnrecognizedParkingTicketException e){
-            throw e;
+        Car returnCar = null;
+
+        if(parkingTicket == null){
+            throw new TicketNotFoundException();
         }
+
+        for(ParkingLot parkingLot : parkingLotList){
+            returnCar = parkingLot.fetch(parkingTicket);
+            if(returnCar != null){
+                break;
+            }
+        }
+
+        if(returnCar == null){
+            throw new UnrecognizedParkingTicketException();
+        }
+        return returnCar;
     }
+
 }

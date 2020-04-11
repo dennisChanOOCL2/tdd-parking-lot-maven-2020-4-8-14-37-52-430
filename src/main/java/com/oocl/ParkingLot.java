@@ -20,10 +20,6 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        boolean isFull = isFull();
-        if(isFull){
-            throw new NotEnoughPositionException();
-        }
 
         if (car == null
                 || this.capacity == parkingTicketCarMap.size()
@@ -37,13 +33,7 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket){
-        if(parkingTicket == null){
-            throw new TicketNotFoundException();
-        }
 
-        if(parkingTicketCarMap.get(parkingTicket) == null){
-            throw new UnrecognizedParkingTicketException();
-        }
         Car car= parkingTicketCarMap.remove(parkingTicket);
         return car;
     }
