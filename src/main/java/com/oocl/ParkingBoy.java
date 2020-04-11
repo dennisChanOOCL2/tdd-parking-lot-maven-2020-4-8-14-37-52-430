@@ -12,11 +12,19 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        ParkingLot selectedParkingLot = this.parkingLotList.stream().filter(parkingLot -> !parkingLot.isFull()).findFirst().get();
+        ParkingLot selectedParkingLot = this.parkingLotList.stream()
+                .filter(parkingLot -> !parkingLot.isFull())
+                .findFirst()
+                .orElse(null);
+
+        if(selectedParkingLot == null){
+            throw new NotEnoughPositionException();
+        }
+
         return selectedParkingLot.park(car);
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
+    public Car fetch(ParkingTicket parkingTicket){
         try{
             return this.parkingLotList.get(0).fetch(parkingTicket);
         }catch(UnrecognizedParkingTicketException e){

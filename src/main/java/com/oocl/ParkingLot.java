@@ -17,6 +17,10 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
         boolean isFull = isFull();
+        if(isFull){
+            throw new NotEnoughPositionException();
+        }
+
         if (car == null
                 || this.capacity == parkingTicketCarMap.size()
                 || parkingTicketCarMap.containsValue(car)){
