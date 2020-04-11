@@ -7,10 +7,6 @@ public class ParkingLot {
     private int capacity;
     private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<ParkingTicket, Car>();
 
-    public int getRemainPosition() {
-        return capacity - parkingTicketCarMap.size();
-    }
-
     public ParkingLot(int capacity){
         this.capacity = capacity;
     }
@@ -43,5 +39,13 @@ public class ParkingLot {
             return true;
         }
         return false;
+    }
+
+    public int getRemainPosition() {
+        return capacity - parkingTicketCarMap.size();
+    }
+
+    public double getPositionRate(){
+        return getRemainPosition()/capacity;
     }
 }
