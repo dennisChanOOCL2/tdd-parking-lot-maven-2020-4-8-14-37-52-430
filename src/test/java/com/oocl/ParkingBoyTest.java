@@ -174,19 +174,16 @@ public class ParkingBoyTest {
 
     @Test
     public void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full(){
-        expectedException.expect(TicketNotFoundException.class);
-        expectedException.expectMessage("Please provide your parking ticket.");
 
         ParkingLot firstParkingLot = new ParkingLot(1);
-        ParkingLot secondParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot(1);
 
         ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot, secondParkingLot);
         parkingBoy.park(new Car());
+        parkingBoy.park(new Car());
 
-        Car car = new Car();
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-
-        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        Assert.assertEquals(0, firstParkingLot.getRemainPosition());
+        Assert.assertEquals(0, secondParkingLot.getRemainPosition());
     }
 
 
