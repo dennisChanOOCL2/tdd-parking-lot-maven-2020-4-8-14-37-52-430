@@ -142,10 +142,16 @@ public class ParkingBoyManagerTest {
         expectedException.expect(NotEnoughPositionException.class);
         expectedException.expectMessage("Not enough position.");
 
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        parkingBoy.park(new Car());
-        parkingBoy.park(new Car());
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+
+        ParkingBoy parkingBoyForFirstParkingLot = new ParkingBoy(firstParkingLot);
+        ParkingBoy parkingBoyForSecondParkingLot = new ParkingBoy(secondParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
+        parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot, parkingBoyForSecondParkingLot);
+        parkingBoyManager.assignParkingBoyParkCar(new Car());
+        parkingBoyManager.assignParkingBoyParkCar(new Car());
+        parkingBoyManager.assignParkingBoyParkCar(new Car());
 
     }
 
