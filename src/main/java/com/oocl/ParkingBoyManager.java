@@ -16,4 +16,13 @@ public class ParkingBoyManager extends ParkingBoy {
     public void assignParkingBoy(ParkingBoy... parkingBoys){
         parkingBoyList.addAll(Arrays.asList(parkingBoys));
     }
+
+    public ParkingTicket assignParkingBoyParkCar(){
+        return null;
+    }
+
+    public Car assignParkingBoyFetchCar(){
+        return null;
+    }
+
 }
