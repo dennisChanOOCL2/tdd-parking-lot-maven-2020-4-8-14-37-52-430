@@ -50,7 +50,7 @@ public class ParkingBoyManagerTest {
     }
 
     @Test
-    public void should_return_null_when_manager_assign_parking_boy_to_fetch_car_from_a_parking_lot_which_is_not_manageed_by_him(){
+    public void should_return_null_when_manager_assign_parking_boy_to_fetch_car_from_a_parking_lot_which_is_not_managed_by_him(){
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
 
@@ -69,4 +69,21 @@ public class ParkingBoyManagerTest {
 
     }
 
+    @Test
+    public void should_return_null_when_manager_try_to_fetch_car_from_a_parking_lot_which_is_not_managed_by_him(){
+        expectedException.expect(UnrecognizedParkingTicketException.class);
+        expectedException.expectMessage("Unrecognized parking ticket.");
+
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+
+        ParkingBoy parkingBoyForSecondParkingLot = new ParkingBoy(secondParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager(firstParkingLot);
+        Car car = new Car();
+
+        ParkingTicket parkingTicket = parkingBoyForSecondParkingLot.park(car);
+        Car fetchedCar = parkingBoyManager.fetch(parkingTicket);
+        Assert.assertNull(fetchedCar);
+
+    }
 }
