@@ -97,10 +97,9 @@ public class ParkingBoyManagerTest {
         ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
         Car car = new Car();
         parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot, parkingBoyForSecondParkingLot);
-        ParkingTicket parkingTicket = parkingBoyForSecondParkingLot.park(car);
+        ParkingTicket parkingTicket = parkingBoyManager.assignParkingBoyParkCar(car);
 
         Assert.assertEquals(car, parkingBoyManager.assignParkingBoyFetchCar(parkingTicket));
-
     }
 
 }

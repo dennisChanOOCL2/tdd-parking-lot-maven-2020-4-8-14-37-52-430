@@ -159,6 +159,17 @@ public class ParkingBoyTest {
         parkingBoy.fetch(null);
     }
 
+    @Test
+    public void should_return_exception_message_when_not_enough_position() {
+        expectedException.expect(NotEnoughPositionException.class);
+        expectedException.expectMessage("Not enough position.");
+
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        parkingBoy.park(new Car());
+        parkingBoy.park(new Car());
+
+    }
 
     @Test
     public void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full(){
