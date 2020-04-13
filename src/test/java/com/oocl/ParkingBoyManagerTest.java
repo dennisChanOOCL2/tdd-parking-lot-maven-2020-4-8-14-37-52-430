@@ -24,23 +24,28 @@ public class ParkingBoyManagerTest {
     @Test
     public void assign_parking_boy_to_park_car(){
 
-        ParkingLot firstParkingLot = new ParkingLot(2);
-        ParkingLot secondParkingLot = new ParkingLot(5);
+        ParkingLot firstParkingLot = new ParkingLot(1);
 
         ParkingBoy parkingBoyForFirstParkingLot = new ParkingBoy(firstParkingLot);
-        ParkingBoy parkingBoyForSecondParkingLot = new ParkingBoy(secondParkingLot);
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(firstParkingLot, secondParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
 
-        parkingBoyForFirstParkingLot.park(new Car());
-        parkingBoyForSecondParkingLot.park(new Car());
-        parkingBoyForSecondParkingLot.park(new Car());
-        parkingBoyForSecondParkingLot.park(new Car());
+        parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot);
+        ParkingTicket parkingTicket = parkingBoyManager.assignParkingBoyParkCar(new Car());
 
-        superSmartParkingBoy.park(new Car());
-
-        Assert.assertEquals(0, firstParkingLot.getRemainPosition());
-        Assert.assertEquals(2, secondParkingLot.getRemainPosition());
+        Assert.assertNotNull(parkingTicket);
     }
 
+    @Test
+    public void assign_parking_boy_to_fetch_car(){
 
+        ParkingLot firstParkingLot = new ParkingLot(1);
+
+        ParkingBoy parkingBoyForFirstParkingLot = new ParkingBoy(firstParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
+
+        parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot);
+        ParkingTicket parkingTicket = parkingBoyManager.assignParkingBoyParkCar(new Car());
+
+        Assert.assertNotNull(parkingTicket);
+    }
 }

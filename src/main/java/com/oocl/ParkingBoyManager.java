@@ -1,9 +1,7 @@
 package com.oocl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class ParkingBoyManager extends ParkingBoy {
 
@@ -17,8 +15,17 @@ public class ParkingBoyManager extends ParkingBoy {
         parkingBoyList.addAll(Arrays.asList(parkingBoys));
     }
 
-    public ParkingTicket assignParkingBoyParkCar(){
-        return null;
+    public ParkingTicket assignParkingBoyParkCar(Car car){
+
+        for (ParkingBoy parkingBoy : parkingBoyList) {
+            try {
+                ParkingTicket returnTicket = parkingBoy.park(car);
+                return returnTicket;
+            } catch (RuntimeException expectedExpcetion) {
+            }
+        }
+        throw new NotEnoughPositionException();
+
     }
 
     public Car assignParkingBoyFetchCar(){
