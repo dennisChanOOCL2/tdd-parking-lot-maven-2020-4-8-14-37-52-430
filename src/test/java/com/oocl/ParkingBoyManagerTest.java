@@ -102,4 +102,45 @@ public class ParkingBoyManagerTest {
         Assert.assertEquals(car, parkingBoyManager.assignParkingBoyFetchCar(parkingTicket));
     }
 
+    @Test
+    public void should_return_exception_message_when_manager_assign_parking_boy_to_fetch_car_with_incorrect_ticket() throws UnrecognizedParkingTicketException {
+        expectedException.expect(UnrecognizedParkingTicketException.class);
+        expectedException.expectMessage("Unrecognized parking ticket.");
+
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+
+        ParkingBoy parkingBoyForFirstParkingLot = new ParkingBoy(firstParkingLot);
+        ParkingBoy parkingBoyForSecondParkingLot = new ParkingBoy(secondParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
+
+        parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot, parkingBoyForSecondParkingLot);
+
+        parkingBoyManager.assignParkingBoyFetchCar(new ParkingTicket());
+
+    }
+
+    @Test
+    public void should_return_exception_message_when_manager_assign_parking_boy_to_fetch_car_but_no_ticket_provided() {
+        expectedException.expect(TicketNotFoundException.class);
+        expectedException.expectMessage("Please provide your parking ticket.");
+
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        parkingBoy.fetch(null);
+    }
+
+    @Test
+    public void should_return_exception_message_when_manager_assign_parking_boy_to_fetch_car_but_not_enough_position() {
+        expectedException.expect(NotEnoughPositionException.class);
+        expectedException.expectMessage("Not enough position.");
+
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        parkingBoy.park(new Car());
+        parkingBoy.park(new Car());
+
+    }
+
 }
