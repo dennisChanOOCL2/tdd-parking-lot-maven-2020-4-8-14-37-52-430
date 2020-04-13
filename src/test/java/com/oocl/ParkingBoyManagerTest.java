@@ -125,10 +125,16 @@ public class ParkingBoyManagerTest {
         expectedException.expect(TicketNotFoundException.class);
         expectedException.expectMessage("Please provide your parking ticket.");
 
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
 
-        parkingBoy.fetch(null);
+        ParkingBoy parkingBoyForFirstParkingLot = new ParkingBoy(firstParkingLot);
+        ParkingBoy parkingBoyForSecondParkingLot = new ParkingBoy(secondParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
+
+        parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot, parkingBoyForSecondParkingLot);
+
+        parkingBoyManager.assignParkingBoyFetchCar(null);
     }
 
     @Test

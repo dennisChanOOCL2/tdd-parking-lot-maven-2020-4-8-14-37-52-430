@@ -29,7 +29,7 @@ public class ParkingBoyManager extends ParkingBoy {
     }
 
     public Car assignParkingBoyFetchCar(ParkingTicket parkingTicket){
-
+        checkTickNotFound(parkingTicket);
         for (ParkingBoy parkingBoy : parkingBoyList) {
             try {
                 Car car = parkingBoy.fetch(parkingTicket);
