@@ -29,7 +29,15 @@ public class ParkingBoyManager extends ParkingBoy {
     }
 
     public Car assignParkingBoyFetchCar(ParkingTicket parkingTicket){
-        return null;
+
+        for (ParkingBoy parkingBoy : parkingBoyList) {
+            try {
+                Car car = parkingBoy.fetch(parkingTicket);
+                return car;
+            } catch (RuntimeException expectedExpcetion) {
+            }
+        }
+        throw new UnrecognizedParkingTicketException();
     }
 
 }

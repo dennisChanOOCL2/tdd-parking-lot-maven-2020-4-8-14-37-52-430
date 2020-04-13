@@ -32,10 +32,7 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket parkingTicket){
         Car returnCar = null;
-
-        if(parkingTicket == null){
-            throw new TicketNotFoundException();
-        }
+        checkTickNotFound(parkingTicket);
 
         for(ParkingLot parkingLot : parkingLotList){
             returnCar = parkingLot.fetch(parkingTicket);
@@ -48,6 +45,12 @@ public class ParkingBoy {
             throw new UnrecognizedParkingTicketException();
         }
         return returnCar;
+    }
+
+    public void checkTickNotFound(ParkingTicket parkingTicket){
+        if(parkingTicket == null){
+            throw new TicketNotFoundException();
+        }
     }
 
 }
