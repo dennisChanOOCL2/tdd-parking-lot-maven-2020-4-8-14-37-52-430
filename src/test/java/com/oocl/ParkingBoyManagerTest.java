@@ -84,6 +84,23 @@ public class ParkingBoyManagerTest {
         ParkingTicket parkingTicket = parkingBoyForSecondParkingLot.park(car);
         Car fetchedCar = parkingBoyManager.fetch(parkingTicket);
         Assert.assertNull(fetchedCar);
+    }
+
+    @Test
+    public void should_not_show_error_message_if_manager_have_two_parking_boy_belong_to_different_parking_lot_and_he_told_them_to_fetch_a_car_which_is_park_from_one_of_the_parking_boy(){
+
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+
+        ParkingBoy parkingBoyForFirstParkingLot = new ParkingBoy(firstParkingLot);
+        ParkingBoy parkingBoyForSecondParkingLot = new ParkingBoy(secondParkingLot);
+        ParkingBoyManager parkingBoyManager = new ParkingBoyManager();
+        Car car = new Car();
+        parkingBoyManager.assignParkingBoy(parkingBoyForFirstParkingLot, parkingBoyForSecondParkingLot);
+        ParkingTicket parkingTicket = parkingBoyForSecondParkingLot.park(car);
+
+        Assert.assertEquals(car, parkingBoyManager.assignParkingBoyFetchCar(parkingTicket));
 
     }
+
 }
