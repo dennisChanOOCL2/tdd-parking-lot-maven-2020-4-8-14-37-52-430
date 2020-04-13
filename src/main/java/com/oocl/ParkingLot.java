@@ -46,6 +46,6 @@ public class ParkingLot {
     }
 
     public double getPositionRate(){
-        return getRemainPosition()/capacity;
+        return (double)getRemainPosition()/capacity;
     }
 }
