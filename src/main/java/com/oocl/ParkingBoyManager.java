@@ -28,7 +28,7 @@ public class ParkingBoyManager extends ParkingBoy {
 
     }
 
-    public Car assignParkingBoyFetchCar(){
+    public Car assignParkingBoyFetchCar(ParkingTicket parkingTicket){
         return null;
     }
 
