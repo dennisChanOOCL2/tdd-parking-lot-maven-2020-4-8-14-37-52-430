@@ -18,6 +18,7 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
 
+        //different logic here (business / logic error)
         if (car == null
                 || this.capacity == parkingTicketCarMap.size()
                 || parkingTicketCarMap.containsValue(car)){
@@ -47,6 +48,6 @@ public class ParkingLot {
     }
 
     public double getPositionRate(){
-        return (double)getRemainPosition()/capacity;
+        return (double) getRemainPosition()/capacity;
     }
 }

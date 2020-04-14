@@ -27,13 +27,15 @@ public class ParkingBoy {
 
     public List<ParkingLot> findParkingLotIsNotFull(){
         List<ParkingLot> availableParkingLotList = this.parkingLotList.stream()
-                .filter(parkingLot -> !parkingLot.isFull()).collect(Collectors.toList());
+                .filter(parkingLot -> !parkingLot.isFull())
+                .collect(Collectors.toList());
         return availableParkingLotList;
     }
 
     public Car fetch(ParkingTicket parkingTicket){
 
         checkTickNotFound(parkingTicket);
+        // stream
         for(ParkingLot parkingLot : parkingLotList){
             Car returnCar = parkingLot.fetch(parkingTicket);
             if(returnCar != null){

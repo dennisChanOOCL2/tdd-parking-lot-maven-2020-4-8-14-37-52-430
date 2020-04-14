@@ -17,27 +17,24 @@ public class ParkingBoyManager extends ParkingBoy {
 
     public ParkingTicket assignParkingBoyParkCar(Car car){
 
-        for (ParkingBoy parkingBoy : parkingBoyList) {
-            try {
-                ParkingTicket returnTicket = parkingBoy.park(car);
-                return returnTicket;
-            } catch (RuntimeException expectedExpcetion) {
-            }
-        }
-        throw new NotEnoughPositionException();
+        ParkingBoy selectedParkingBoy = parkingBoyList.stream()
+                .filter(parkingBoy -> parkingBoy.findParkingLotIsNotFull() != null)
+                .findFirst()
+                .orElseThrow(() -> new NotEnoughPositionException());
+
+        return selectedParkingBoy.park(car);
 
     }
 
     public Car assignParkingBoyFetchCar(ParkingTicket parkingTicket){
         checkTickNotFound(parkingTicket);
-        for (ParkingBoy parkingBoy : parkingBoyList) {
-            try {
-                Car car = parkingBoy.fetch(parkingTicket);
-                return car;
-            } catch (RuntimeException expectedExpcetion) {
-            }
-        }
-        throw new UnrecognizedParkingTicketException();
+
+        ParkingBoy selectedParkingBoy = parkingBoyList.stream()
+                .filter(parkingBoy -> parkingBoy.fetch(parkingTicket) != null)
+                .findFirst()
+                .orElseThrow(() -> new UnrecognizedParkingTicketException());
+
+        return selectedParkingBoy.fetch(parkingTicket);
     }
 
 }
