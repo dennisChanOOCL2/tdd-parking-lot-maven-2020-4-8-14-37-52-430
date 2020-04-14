@@ -14,7 +14,7 @@ public class ParkingBoy {
 
     public ParkingTicket park(Car car) {
 
-        ParkingLot parkingLot = selectParkingLot();
+        ParkingLot parkingLot = selectAvailableParkingLot();
 
         if(parkingLot == null){
             throw new NotEnoughPositionException();
@@ -23,7 +23,7 @@ public class ParkingBoy {
         return parkingLot.park(car);
     }
 
-    public ParkingLot selectParkingLot(){
+    public ParkingLot selectAvailableParkingLot(){
         return findParkingLotIsNotFull().get(0);
     }
 

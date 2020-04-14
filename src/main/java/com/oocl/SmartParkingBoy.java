@@ -12,7 +12,7 @@ public class SmartParkingBoy extends ParkingBoy {
     }
 
     @Override
-    public ParkingLot selectParkingLot(){
+    public ParkingLot selectAvailableParkingLot(){
         return findParkingLotIsNotFull().stream()
                 .max(Comparator.comparing(ParkingLot::getRemainPosition))
                 .orElse(null);
