@@ -67,7 +67,7 @@ public class ParkingBoyTest {
         Car fetchedCar = parkingBoy.fetch(parkingTicket);
         Assert.assertEquals(car, fetchedCar);
     }
-    
+
     @Test
     public void should_park_car_to_parking_lot(){
         ParkingLot parkingLot = new ParkingLot();

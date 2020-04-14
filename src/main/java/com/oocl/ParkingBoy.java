@@ -22,10 +22,7 @@ public class ParkingBoy {
     }
 
     public ParkingLot selectAvailableParkingLot(){
-        if(findParkingLotIsNotFull().size() != 0){
-            return findParkingLotIsNotFull().get(0);
-        }
-        return null;
+        return findParkingLotIsNotFull().stream().findFirst().orElse(null);
     }
 
     public List<ParkingLot> findParkingLotIsNotFull(){
