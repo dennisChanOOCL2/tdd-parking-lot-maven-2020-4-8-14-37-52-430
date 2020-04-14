@@ -12,18 +12,10 @@ public class SmartParkingBoy extends ParkingBoy {
     }
 
     @Override
-    public ParkingTicket park(Car car) {
-
-        List<ParkingLot> availableParkingLotList = findParkingLotIsNotFull();
-        ParkingLot selectedParkingLot = availableParkingLotList.stream()
+    public ParkingLot selectParkingLot(){
+        return findParkingLotIsNotFull().stream()
                 .max(Comparator.comparing(ParkingLot::getRemainPosition))
                 .orElse(null);
-
-        if(selectedParkingLot == null){
-            throw new NotEnoughPositionException();
-        }
-
-        return selectedParkingLot.park(car);
     }
 
 }

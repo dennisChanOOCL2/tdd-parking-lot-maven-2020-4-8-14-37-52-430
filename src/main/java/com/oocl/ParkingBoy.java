@@ -14,13 +14,17 @@ public class ParkingBoy {
 
     public ParkingTicket park(Car car) {
 
-        List<ParkingLot> availableParkingLotList = findParkingLotIsNotFull();
+        ParkingLot parkingLot = selectParkingLot();
 
-        if(availableParkingLotList.size() == 0){
+        if(parkingLot == null){
             throw new NotEnoughPositionException();
         }
 
-        return availableParkingLotList.get(0).park(car);
+        return parkingLot.park(car);
+    }
+
+    public ParkingLot selectParkingLot(){
+        return findParkingLotIsNotFull().get(0);
     }
 
     public List<ParkingLot> findParkingLotIsNotFull(){
@@ -31,20 +35,18 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket){
-        Car returnCar = null;
+
         checkTickNotFound(parkingTicket);
 
         for(ParkingLot parkingLot : parkingLotList){
-            returnCar = parkingLot.fetch(parkingTicket);
+            Car returnCar = parkingLot.fetch(parkingTicket);
             if(returnCar != null){
-                break;
+                return returnCar;
             }
         }
 
-        if(returnCar == null){
-            throw new UnrecognizedParkingTicketException();
-        }
-        return returnCar;
+        throw new UnrecognizedParkingTicketException();
+
     }
 
     public void checkTickNotFound(ParkingTicket parkingTicket){
