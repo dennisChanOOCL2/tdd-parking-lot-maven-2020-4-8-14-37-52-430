@@ -15,36 +15,34 @@ public class ParkingBoy {
     public ParkingTicket park(Car car) {
 
         ParkingLot parkingLot = selectAvailableParkingLot();
-
         if(parkingLot == null){
             throw new NotEnoughPositionException();
         }
-
         return parkingLot.park(car);
     }
 
     public ParkingLot selectAvailableParkingLot(){
-        return findParkingLotIsNotFull().get(0);
+        if(findParkingLotIsNotFull().size() != 0){
+            return findParkingLotIsNotFull().get(0);
+        }
+        return null;
     }
 
     public List<ParkingLot> findParkingLotIsNotFull(){
         List<ParkingLot> availableParkingLotList = this.parkingLotList.stream()
                 .filter(parkingLot -> !parkingLot.isFull()).collect(Collectors.toList());
-
         return availableParkingLotList;
     }
 
     public Car fetch(ParkingTicket parkingTicket){
 
         checkTickNotFound(parkingTicket);
-
         for(ParkingLot parkingLot : parkingLotList){
             Car returnCar = parkingLot.fetch(parkingTicket);
             if(returnCar != null){
                 return returnCar;
             }
         }
-
         throw new UnrecognizedParkingTicketException();
 
     }
